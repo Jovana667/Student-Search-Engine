@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Search</title>
+    <style>
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        iframe {
+            width: 320px;
+            height: 180px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search YouTube Videos</h1>
+    <form id="search-form">
+        <input type="text" id="search-query" placeholder="Enter a topic" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="videos" class="video-container"></div>
+
+    <script src="./Assets/js/youtubetest.js"></script>
+</body>
+</html>
