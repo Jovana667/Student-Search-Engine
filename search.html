@@ -12,17 +12,13 @@
 </head>
 
 <body>
+
   <div class="flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-primary">
-    <div class="col-12 p-3">
-      <div class="header-container">
-        <a href="./index.html" class="btn btn-danger">&larr; Go back</a>
-        <h1 class="text-primary">Student Search Engine</h1>
-      </div>
+    <div class="col-12 col-md-3 bg-light p-3">
+      <h1 class="text-primary">Student Search Engine</h1>
       <form id="search-form" class="mb-2">
-        <div class="search-container">
-          <input id="search-input" class="form-input" type="text" placeholder="Search!">
-          <button class="btn btn-info">Search</button>
-        </div>
+        <input id="search-input" class="form-input w-100" type="text" placeholder="Search!">
+        <button class="btn btn-info btn-block">Search</button>
       </form>
 
       <div class="radio-toolbar">
@@ -32,9 +28,11 @@
         <input type="radio" id="radioWikipedia" name="radioSource" value="wikipedia">
         <label for="radioWikipedia">Wikipedia</label>
       </div>
+
+      <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back</a>
     </div>
 
-    <div class="col-12 p-3 text-light">
+    <div class="col-12 col-md-9 p-3 text-light">
       <h2>Showing results for <span id="result-text"></span></h2>
       <div id="result-content"></div>
     </div>
@@ -42,3 +40,5 @@
 
   <script src="./assets/js/search-page.js"></script>
 </body>
+
+</html>
