@@ -1,8 +1,3 @@
-document.getElementById('search-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  let query = document.getElementById('search-query').value;
-  searchWikipedia(query);
-});
 // I have updated the content of handleSearchFormSubmit function and getParams function
 // and added renderSearchHistoryList function
 // but didn't add any style to the search history (just temperaryly use the style from search button)
