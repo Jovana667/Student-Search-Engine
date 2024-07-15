@@ -139,6 +139,44 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
+.search-input-group {
+  display: flex;
+  width: 100%;
+}
+
+#search-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.search-input-group .btn {
+  white-space: nowrap;
+}
+
+.previously-searched h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+#search-history {
+  list-style-type: none;
+  padding: 0;
+}
+
+#search-history li {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+#search-history li:hover {
+  background-color: #e9ecef;
+}
+
 /* Responsive adjustments */
 @media screen and (min-width: 768px) {
   .col-md-3 {
