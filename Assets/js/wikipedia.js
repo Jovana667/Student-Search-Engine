@@ -13,10 +13,24 @@ function searchWikipedia(query) {
             let articlesContainer = document.getElementById('articles');
             articlesContainer.innerHTML = '';
             data.query.search.forEach(item => {
-                let pageId = item.pageid;
-                let iframe = document.createElement('iframe');
-                iframe.src = `https://en.wikipedia.org/?curid=${pageId}`;
-                articlesContainer.appendChild(iframe);
+                let articleDiv = document.createElement('div');
+                articleDiv.classList.add('article');
+
+                let title = document.createElement('h3');
+                title.textContent = item.title;
+                articleDiv.appendChild(title);
+
+                let snippet = document.createElement('p');
+                snippet.innerHTML = item.snippet + '...'; // Using innerHTML to render the HTML entities correctly
+                articleDiv.appendChild(snippet);
+
+                let readMoreLink = document.createElement('a');
+                readMoreLink.href = `https://en.wikipedia.org/?curid=${item.pageid}`;
+                readMoreLink.textContent = 'Read more';
+                readMoreLink.target = '_blank'; // Opens link in a new tab
+                articleDiv.appendChild(readMoreLink);
+
+                articlesContainer.appendChild(articleDiv);
             });
         })
         .catch(error => console.error('Error fetching data:', error));
