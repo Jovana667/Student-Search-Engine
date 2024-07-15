@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -14,62 +14,24 @@
 <body>
   <div class="flex-row align-center justify-center min-100-vh bg-primary">
     <div class="col-12 col-md-9 flex-column align-center bg-light p-5">
-      <h1 class="text-primary">Library of Congress Search Engine</h1>
+      <h1 class="text-primary">Student Search Engine</h1>
       <form id="search-form" class="form w-100">
-        <input id="search-input" class="form-input w-100" type="text" placeholder="Search!">
-        <button class="btn btn-info btn-block">Click Me</button>
+        <div class="search-container">
+          <input id="search-input" class="form-input" type="text" placeholder="Search!">
+          <button class="btn btn-info">Search</button>
+        </div>
+        <div class="radio-toolbar">
+          <input type="radio" id="radioYouTube" name="radioSource" value="youtube">
+          <label for="radioYouTube">YouTube</label>
+          <input type="radio" id="radioWikipedia" name="radioSource" value="wikipedia">
+          <label for="radioWikipedia">Wikipedia</label>
+        </div>
       </form>
+      <div id="search-history" class="w-100 mt-4"></div>
     </div>
   </div>
-
-  <script src="./assets/js/script.js"></script>
-</body>
-
-</html> --> 
-
-
-
-<!-- html with bulma styling -->
-
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Student Search</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <link rel="stylesheet" href="./assets/css/search.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-
-<body>
-  <section class="hero is-link is-fullheight">
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <div class="box">
-          <h1 class="title is-1 has-text-link">Header goes here <span class="emoji">🔍</span></h1>
-          <form id="search-form">
-            <div class="field">
-              <div class="control has-icons-left">
-                <input id="search-input" class="input is-rounded is-large" type="text" placeholder="Input Here...">
-                <span class="icon is-small is-left">
-                  <i class="fas fa-search"></i>
-                </span>
-              </div>
-            </div>
-            <div class="field">
-              <div class="control">
-                <button class="button is-warning is-rounded is-medium is-fullwidth">Explore Now</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script src="./assets/js/script.js"></script>
+  
+  <script src="./assets/js/home.js"></script>
 </body>
 
 </html>
