@@ -1,14 +1,17 @@
 
 // I have updated the content of handleSearchFormSubmit function and getParams function
+// and added renderSearchHistoryList function
+// but didn't add any style to the search history (just temperaryly use the style from search button)
 // 
 // Add searchWikipediaApi and searchYoutubeApi function, but haven't edit the inside of the function, 
-// not sure should we put them into different functions or just use one searchApi for both Wikipedia and Youtube
-// 
-// searchApi and printResults functions are still same from mini project, haven't edit anything within them
+// printResults function haven't put anything within them
 
 const resultTextEl = document.querySelector('#result-text');
 const resultContentEl = document.querySelector('#result-content');
 const searchFormEl = document.querySelector('#search-form');
+const searchHistoryEl = document.querySelector('#search-history');
+
+let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 
 function getParams() {
   const searchParamsArr = document.location.search.split('&');
@@ -32,110 +35,67 @@ function searchYoutubeApi(query) {
   
 }
 
-function searchApi(query, format) {
-  let locQueryUrl = 'https://www.loc.gov/search/?fo=json';
-
-  if (format) {
-    locQueryUrl = `https://www.loc.gov/${format}/?fo=json`;
-  }
-
-  locQueryUrl = `${locQueryUrl}&q=${query}`;
-
-  fetch(locQueryUrl)
-    .then(function (response) {
-      if (!response.ok) {
-        throw response.json();
-      }
-
-      return response.json();
-    })
-    .then(function (locRes) {
-      // write query to page so user knows what they are viewing
-      resultTextEl.textContent = locRes.search.query;
-
-      console.log(locRes);
-
-      if (!locRes.results.length) {
-        console.log('No results found!');
-        resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
-      } else {
-        resultContentEl.textContent = '';
-        for (let i = 0; i < locRes.results.length; i++) {
-          printResults(locRes.results[i]);
-        }
-      }
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-}
-
 function printResults(resultObj) {
-  console.log(resultObj);
-
-  // set up `<div>` to hold result content
-  const resultCard = document.createElement('div');
-  resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
-
-  const resultBody = document.createElement('div');
-  resultBody.classList.add('card-body');
-  resultCard.append(resultBody);
-
-  const titleEl = document.createElement('h3');
-  titleEl.textContent = resultObj.title;
-
-  const bodyContentEl = document.createElement('p');
-  bodyContentEl.innerHTML =
-    `<strong>Date:</strong>${resultObj.date}<br/>`;
-
-  if (resultObj.subject) {
-    bodyContentEl.innerHTML +=
-      `<strong>Subjects:</strong>${resultObj.subject.join(', ')}<br/>`;
-  } else {
-    bodyContentEl.innerHTML +=
-      '<strong>Subjects:</strong> No subject for this entry.';
-  }
-
-  if (resultObj.description) {
-    bodyContentEl.innerHTML +=
-      `<strong>Description:</strong>${resultObj.description[0]}`;
-  } else {
-    bodyContentEl.innerHTML +=
-      '<strong>Description:</strong>  No description for this entry.';
-  }
-
-  const linkButtonEl = document.createElement('a');
-  linkButtonEl.textContent = 'Read More';
-  linkButtonEl.setAttribute('href', resultObj.url);
-  linkButtonEl.classList.add('btn', 'btn-dark');
-
-  resultBody.append(titleEl, bodyContentEl, linkButtonEl);
-
-  resultContentEl.append(resultCard);
+  
 }
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
   const searchInputVal = document.querySelector('#search-input').value;
-  //   const sourceInputVal = document.querySelector('#source-input').value;
+  const youtubeRadio = document.querySelector('#radioYouTube');
+  const wikipediaRadio = document.querySelector('#radioWikipedia');
 
   if (!searchInputVal) {
-    console.error('You need a search input value!'); //can change this to a warning dialog model or just simply add a <p> element
+    alert('You need a search input value!'); //can change this to a warning dialog model to meet the grading criteria or just simply add a <p> element
     return;
   }
 
-  //   if (!sourceInputVal) {
-  //     console.error('Please choose a source website that you want to search from!'); 
-  //     return;
-  //   }
+  let selectedSource;
+  if (youtubeRadio.checked) {
+    selectedSource = youtubeRadio.value;
+  } else if (wikipediaRadio.checked) {
+    selectedSource = wikipediaRadio.value;
+  } else {
+    alert('Please choose a source website that you want to search from!'); 
+    return;
+  }
 
-  const queryString = `./search.html?q=${searchInputVal}`; // $source=${sourceInputVal}
+  const searchEntry = { query: searchInputVal, source: selectedSource };
+  const isDuplicate = searchHistoryList.some(
+    history => history.query === searchEntry.query && history.source === searchEntry.source
+  );
+
+  if (!isDuplicate) {
+    searchHistoryList.push(searchEntry);
+    localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
+  }
+
+  const queryString = `./search.html?q=${searchInputVal}&source=${selectedSource}`;
 
   location.assign(queryString);
-
-  getParams();
 }
+
+function renderSearchHistoryList() {
+  searchHistoryEl.innerHTML = ''; 
+
+  searchHistoryList.forEach(searchHistory => {
+    const historyButton = document.createElement('button');
+    historyButton.textContent = `${searchHistory.query} (${searchHistory.source})`;
+    historyButton.classList.add('btn', 'btn-info', 'btn-block', 'mb-2');
+    historyButton.addEventListener('click', () => {
+      document.querySelector('#search-input').value = searchHistory.query;
+      if (searchHistory.source === 'youtube') {
+        document.querySelector('#radioYouTube').checked = true;
+      } else if (searchHistory.source === 'wikipedia') {
+        document.querySelector('#radioWikipedia').checked = true;
+      }
+    });
+    searchHistoryEl.appendChild(historyButton);
+  });
+};
+
+renderSearchHistoryList();
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
