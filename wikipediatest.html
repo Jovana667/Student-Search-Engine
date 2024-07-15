@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia Article Search</title>
+    <style>
+        .article-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .article {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .article h3 {
+            margin: 0;
+            padding-bottom: 10px;
+            color: #007BFF;
+        }
+        .article p {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+        .article a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Wikipedia Articles</h1>
+    <form id="search-form">
+        <input type="text" id="search-query" placeholder="Enter a topic" required>
+        <button type="submit">Search</button>
+    </form>
+    <div id="articles" class="article-container"></div>
+
+    <script src="./Assets/js/wikipedia.js"></script>
+</body>
+</html>
