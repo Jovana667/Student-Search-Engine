@@ -24,7 +24,7 @@ In this project, our team has created a two-page website where students are able
 
 **User Story**
 
-AS A STUDENT <br><br>
+AS A STUDENT <br>
 - I want a Student Search Engine
 - SO THAT I can easily search for videos and wiki articles by searching theh key words on one-stop search engine
 
