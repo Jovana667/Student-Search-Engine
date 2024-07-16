@@ -27,11 +27,11 @@
 
 /* Background Colors */
 .bg-primary {
-  background-color: #007bff;
+  background-color: #cbcece;
 }
 
 .bg-light {
-  background-color: #f8f9fa;
+  background-color: whitesmoke;
 }
 
 /* Header Styles */
@@ -68,16 +68,8 @@
 }
 
 /* Button Styles */
-.btn:hover {
-  background-color: #0056b3;
-}
-
-.btn-info {
-  background-color: #17a2b8;
-}
-
 .btn-danger {
-  background-color: #17a2b8;
+  background-color: #dd7e6b;
   margin-top: 0;
 }
 
