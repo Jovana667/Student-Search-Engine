@@ -143,3 +143,4 @@ renderSearchHistoryList();
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 getParams();
+
