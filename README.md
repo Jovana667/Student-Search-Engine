@@ -35,7 +35,7 @@ AS A STUDENT <br>
 - WHEN I want to refer to my previous searches
 - THEN there is a previously searched history section on search result page to display all searched key words that I can click to search again
 - WHEN I want to delete the searched items
-- THEN the results will be deleted from browser 
+- THEN the results will be deleted from browser by clicking the delete icon next to searched items
 
 
 ## Project Link: To Be Provided
