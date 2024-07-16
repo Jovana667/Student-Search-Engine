@@ -1,10 +1,3 @@
-// I have updated the content of handleSearchFormSubmit function and getParams function
-// and added renderSearchHistoryList function
-// but didn't add any style to the search history (just temperaryly use the style from search button)
-// 
-// Add searchWikipediaApi and searchYoutubeApi function, but haven't edit the inside of the function, 
-// printResults function haven't put anything within them
-
 const resultTextEl = document.querySelector('#result-text');
 const resultContentEl = document.querySelector('#result-content');
 const searchFormEl = document.querySelector('#search-form');
@@ -77,7 +70,6 @@ function searchYouTube(query) {
       .catch(error => console.error('Error fetching data:', error));
 }
 
-
 function printResults(resultObj) {
   
 }
@@ -90,7 +82,7 @@ function handleSearchFormSubmit(event) {
   const wikipediaRadio = document.querySelector('#radioWikipedia');
 
   if (!searchInputVal) {
-    alert('You need a search input value!'); //can change this to a warning dialog model to meet the grading criteria or just simply add a <p> element
+    alert('You need a search input value!');
     return;
   }
 
@@ -120,12 +112,24 @@ function handleSearchFormSubmit(event) {
 }
 
 function renderSearchHistoryList() {
-  searchHistoryEl.innerHTML = ''; 
+  searchHistoryEl.innerHTML = '';
 
-  searchHistoryList.forEach(searchHistory => {
+  searchHistoryList.forEach((searchHistory, index) => {
     const historyButton = document.createElement('button');
-    historyButton.textContent = `${searchHistory.query} (${searchHistory.source})`;
-    historyButton.classList.add('btn', 'btn-info', 'btn-block', 'mb-2');
+    historyButton.classList.add('btn', 'btn-info', 'btn-block', 'mb-2', 'd-flex', 'align-items-center', 'justify-content-between');
+    historyButton.innerHTML = `${searchHistory.query} (${searchHistory.source})`;
+
+    const deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fas', 'fa-trash', 'text-danger', 'ms-2');
+    deleteIcon.addEventListener('click', (event) => {
+      event.stopPropagation(); 
+      searchHistoryList.splice(index, 1);
+      localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
+      renderSearchHistoryList();
+    });
+
+    historyButton.appendChild(deleteIcon);
+
     historyButton.addEventListener('click', () => {
       document.querySelector('#search-input').value = searchHistory.query;
       if (searchHistory.source === 'youtube') {
@@ -134,13 +138,19 @@ function renderSearchHistoryList() {
         document.querySelector('#radioWikipedia').checked = true;
       }
     });
+
     searchHistoryEl.appendChild(historyButton);
   });
-};
+}
 
-renderSearchHistoryList();
+window.addEventListener('load', () => {
+  const storedHistory = localStorage.getItem('search-history-list');
+  if (storedHistory) {
+    searchHistoryList = JSON.parse(storedHistory);
+    renderSearchHistoryList();
+  }
+});
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-
 getParams();
 
