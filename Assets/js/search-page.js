@@ -14,7 +14,7 @@ function getParams() {
   if (source === wikipedia) {
     searchWikipedia(query)
   } else {
-    searchYoutubeApi(query)
+    searchYoutube(query)
   }
 
 }
@@ -51,7 +51,7 @@ function searchWikipedia(query) {
       .catch(error => console.error('Error fetching data:', error));
 }
 
-function searchYouTube(query) {
+function searchYoutube(query) {
   let apiKey = 'AIzaSyBgjhM8jkAtnDveHMpE2IY0O5MGTioGeMs';
   let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${apiKey}`;
 
@@ -71,6 +71,7 @@ function searchYouTube(query) {
 }
 
 function printResults(resultObj) {
+  
   
 }
 
