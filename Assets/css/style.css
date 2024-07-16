@@ -1,18 +1,4 @@
-body {
-    font-family: 'Fira Sans', sans-serif;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Merriweather', serif;
-    font-weight: 700;
-  }
-  
-  /* Basic reset and general styles */
+/* Reset and Base Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -22,14 +8,17 @@ body {
 body {
   font-family: 'Fira Sans', sans-serif;
   line-height: 1.6;
+  margin: 0;
 }
 
-h1 {
-  font-family: 'Merriweather', serif;
-  margin-bottom: 1rem;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto serif', 'Merriweather', serif;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-size: 2rem;
 }
 
-/* Layout styles */
+/* Layout Styles */
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -52,18 +41,6 @@ h1 {
   min-height: 100vh;
 }
 
-.bg-primary {
-  background-color: #2c3e50;
-}
-
-.bg-light {
-  background-color: #ecf0f1;
-}
-
-.text-primary {
-  color: #2c3e50;
-}
-
 .p-5 {
   padding: 3rem;
 }
@@ -72,7 +49,16 @@ h1 {
   width: 100%;
 }
 
-/* Form styles */
+/* Text and Background Colors */
+.text-primary {
+  color: #2c3e50;
+}
+
+.text-light {
+  color: #f8f9fa;
+}
+
+/* Form Styles */
 .form {
   width: 100%;
   max-width: 600px;
@@ -82,7 +68,7 @@ h1 {
   display: flex;
   width: 100%;
   margin-bottom: 1rem;
-  align-items: center; /* This will vertically center the items */
+  align-items: center;
 }
 
 #search-input {
@@ -92,23 +78,43 @@ h1 {
   font-size: 1rem;
   border: 1px solid #bdc3c7;
   border-radius: 4px;
-  height: 40px; /* Keep this consistent */
+  height: 40px;
 }
 
+/* Button Styles */
 .btn {
   white-space: nowrap;
-  padding: 0 1rem; /* Adjust horizontal padding */
+  padding: 0 1rem;
   font-size: 1rem;
   color: #fff;
-  background-color: #3498db;
+  background-color: #007bff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  height: 40px; /* Keep this consistent with the input */
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.btn-info {
+  background-color: #17a2b8;
+}
+
+.btn-info:hover {
+  background-color: #0056b3;
+}
+
+/* Radio Button Styles */
+.radio-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
 .radio-toolbar label {
@@ -121,45 +127,14 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
   margin-right: 0.5rem;
-  height: 40px; /* Match the height of the button */
-  line-height: 25px; /* Center the text vertically */
+  height: 40px;
+  line-height: 25px;
 }
 
-.radio-toolbar input[type="radio"]:checked + label {
-  background-color: #3498db;
-  color: #fff;
-}
-
-  .radio-toolbar {
-    margin-top: 10px;
-    margin-bottom: 10px; 
-    text-align: center;
-  }
-  .radio-toolbar input[type="radio"] {
-    opacity: 0;
-    position: fixed;
-    width: 0;
-  }
-  .radio-toolbar label {
-    display: inline-block;
-    background-color: #ddd;
-    font-family: sans-serif, Arial;
-    font-size: 16px;
-    border: 2px solid #444;
-    border-radius: 4px;
-    margin: 0 5px;
-  }
-  .radio-toolbar input[type="radio"]:checked + label {
-    background-color: #bfb;
-    border-color: #4c4;
-  }
-  .radio-toolbar label:hover {
-    background-color: #dfd;
-  }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .col-md-9 {
-    width: 100%;
+/* Responsive Styles */
+@media screen and (min-width: 768px) {
+  .col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
   }
 }
