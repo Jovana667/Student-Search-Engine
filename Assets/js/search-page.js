@@ -11,7 +11,7 @@ function getParams() {
   const query = searchParamsArr[0].split('=').pop();
   const source = searchParamsArr[1].split('=').pop();
 
-  if (source === wikipedia) {
+  if (source === 'wikipedia') {
     searchWikipedia(query)
   } else {
     searchYoutube(query)
