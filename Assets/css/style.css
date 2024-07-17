@@ -20,43 +20,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Layout Styles */
-.flex-row {
+
+.searchbox {
   display: flex;
   flex-direction: row;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.align-center {
   align-items: center;
-}
-
-.justify-center {
   justify-content: center;
-}
-
-.min-100-vh {
   min-height: 100vh;
 }
 
-.p-5 {
+.searchbox-field{  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 3rem;
+  width:100%;
 }
 
 .w-100 {
   width: 100%;
-}
-
-/* Text and Background Colors */
-.text-primary {
-  color: #2c3e50;
-}
-
-.text-light {
-  color: #f8f9fa;
 }
 
 /* Form Styles */
@@ -112,11 +94,21 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #C16502;
 }
 
+.btn-search .fas {
+  display: none;
+}
+
+.btn-search .search-text {
+  display: inline;
+}
+
 /* Radio Button Styles */
 .radio-container {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-top:20px;
+  margin-bottom: 20px;
 }
 
 .radio-toolbar label {
@@ -134,9 +126,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Responsive Styles */
-@media screen and (min-width: 768px) {
-  .col-md-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
+
+@media screen and (max-width: 768px) {
+  .search-container {
+    flex-direction: row;
   }
+
+  #search-input {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .btn .btn-info .btn-info{
+    font-size: 0.8rem;
+  }
+
+  .btn-search {
+    padding: 0;
+    width: 40px;
+    height: 40px;
+  }
+
+  .btn-search .fas {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .btn-search .search-text {
+    display: none;
+  }
+
+  .radio-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
 }

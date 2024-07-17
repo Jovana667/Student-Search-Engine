@@ -15,13 +15,13 @@
 
 <body>
 
-  <div class="flex-row align-start align-stretch-md align-content-start align-content-stretch-md min-100-vh bg-primary">
-    <div class="col-12 col-md-3 bg-light p-3">
+  <div class="searchbar">
+    <div class="searchbar-left bg-light">
       <h1 class="text-primary">Student Search Engine</h1>
       <form id="search-form" class="mb-2">
         <div class="search-input-group">
           <input id="search-input" class="form-input" type="text" placeholder="Search!">
-          <button class="btn btn-search">Search</button>
+          <button class="btn btn-search"><span class="search-text">Search</span><i class="fas fa-search"></i></button>
         </div>
       </form>
       
@@ -41,17 +41,15 @@
           <ul id="search-history" class="w-100 mt-4"></ul>
         </div>
       </div>
-
     </div>
-  
-    <div class="col-12 col-md-9 p-3 text-light">
-      <h2>Showing results for <span id="result-text"></span></h2>
+
+    <div class="searchresults-right text-light">
+      <h1>Showing results for <span id="result-text"></span></h1>
       <div id="articles" class="article-container"></div>
       <div id="videos" class="video-container"></div>      
     </div>
-  </div>
 
-    
+  </div>
   
 
     <!-- Modal structure -->
