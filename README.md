@@ -50,7 +50,7 @@ AS A STUDENT <br>
 
 ## Demo
 
-https://github.com/user-attachments/assets/261bb15e-dab1-495a-bc64-07c1518b3511
+![Untitled design](https://github.com/user-attachments/assets/44755075-46a2-44b3-a625-1067e7e4dfb6)
 
 ## Main contributors & contacts 
 - Jovana Vukovic (Github: Jovana667)
