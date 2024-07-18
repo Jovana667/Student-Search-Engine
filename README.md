@@ -1,4 +1,4 @@
-# Project1 : Student Search Engine
+# Student Search Engine
 
 ## About The Project
 
@@ -39,12 +39,6 @@ AS A STUDENT <br>
 - WHEN I want to delete the searched items
 - THEN the results will be deleted from browser by clicking the delete icon next to searched items
 
-
-## Project Link: To Be Provided
-
-## Project Status: In Progress
-
-
 ## Built With
 
 - HTML, CSS & JS codes
@@ -54,6 +48,8 @@ AS A STUDENT <br>
 - YouTube API
 - Wikipedia API
 
+## Screenshots
+
 ## Main contributors & contacts 
 - Jovana Vukovic (Github: Jovana667)
 - Zoe Zhong (Github: Zoooe-Brooo)
@@ -61,5 +57,10 @@ AS A STUDENT <br>
 - Wendy Xiao  (Github: Wendyydxiao)
 
 
-## Acknowledgments
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+## Deployed Application
+
+
+
+## License
+
+This project is licensed under the [MIT License].
