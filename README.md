@@ -48,7 +48,9 @@ AS A STUDENT <br>
 - YouTube API
 - Wikipedia API
 
-## Screenshots
+## Demo
+
+https://github.com/user-attachments/assets/261bb15e-dab1-495a-bc64-07c1518b3511
 
 ## Main contributors & contacts 
 - Jovana Vukovic (Github: Jovana667)
