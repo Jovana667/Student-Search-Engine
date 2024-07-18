@@ -140,57 +140,12 @@
   z-index: 1000;
 }
 
-/* Search History Styles */
-
-/* .previously-searched .history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+#last-page {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
-
-.previously-searched .history-header h3 {
-  margin: 0;
-}
-
-#show-history {
-  margin-top: 5px;
-  font-size: 0.9rem;
-}
-
-.previously-searched h3 {
-  font-size: 1.2rem;
-  color: #2c3e50;
-}
-
-#search-history button {
-  width: 100%;
-  text-align: left;
-  white-space: normal; /* Allow text to wrap */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-} */
-
-/* #search-history {
-  list-style-type: none;
-  padding: 0;
-}
-
-#search-history li {
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-}
-
-#search-history li:hover {
-  background-color: #e9ecef;
-} */
-
 
 @media screen and (max-width: 850px) {
 
