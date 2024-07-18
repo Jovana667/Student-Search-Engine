@@ -155,7 +155,7 @@ function renderSearchHistoryList() {
     deleteIcon.classList.add('fas', 'fa-trash', 'text-danger', 'ms-2');
     deleteIcon.addEventListener('click', (event) => {
       event.stopPropagation(); 
-      currentDeleteIndex = index;
+      currentDeleteIndex = searchHistoryList.length - 1 - index;
       openModal();
     });
 
