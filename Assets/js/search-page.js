@@ -39,7 +39,7 @@ function searchWikipedia(query) {
       .then(data => {
           let articlesContainer = document.getElementById('articles');
           articlesContainer.innerHTML = '';
-          data.query.search.forEach(item => {
+          data.query.search.slice(0, 5).forEach(item => {
               let articleDiv = document.createElement('div');
               articleDiv.classList.add('article');
 
@@ -64,7 +64,7 @@ function searchWikipedia(query) {
 }
 
 function searchYoutube(query, pageToken = '') {
-  let apiKey = 'AIzaSyBgjhM8jkAtnDveHMpE2IY0O5MGTioGeMs';
+  let apiKey = 'AIzaSyCWiyD0PtzL7ZgFu3h5f261HZQ9x7ypy84';
   let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${apiKey}&maxResults=${resultsPerPage}`;
   
   if (pageToken) {
