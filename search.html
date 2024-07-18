@@ -37,12 +37,14 @@
         <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back</a>
       
         <div class="previously-searched">
-          <h3>Previously Searched Items</h3>
-          <ul id="search-history" class="w-100 mt-4"></ul>
+          <div class="history-header">
+            <h3>Previously Searched Items</h3>
+            <button id="show-history" class="btn btn-secondary">Show</button>
+          </div>
+          <div id="search-history" style="display: none;"></div>
         </div>
       </div>
     </div>
-
     <div class="searchresults-right text-light">
       <h1>Showing results for <span id="result-text"></span></h1>
       <div id="articles" class="article-container"></div>
