@@ -2,8 +2,13 @@ const resultTextEl = document.querySelector('#result-text');
 const resultContentEl = document.querySelector('#result-content');
 const searchFormEl = document.querySelector('#search-form');
 const searchHistoryEl = document.querySelector('#search-history');
+const deleteModal = document.querySelector('#delete-modal');
+const closeModalBtn = document.querySelector('#close-modal');
+const confirmDeleteBtn = document.querySelector('#confirm-delete');
+const cancelDeleteBtn = document.querySelector('#cancel-delete');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
+let currentDeleteIndex = null;
 
 function getParams() {
   const searchParamsArr = document.location.search.split('&');
@@ -124,9 +129,8 @@ function renderSearchHistoryList() {
     deleteIcon.classList.add('fas', 'fa-trash', 'text-danger', 'ms-2');
     deleteIcon.addEventListener('click', (event) => {
       event.stopPropagation(); 
-      searchHistoryList.splice(index, 1);
-      localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
-      renderSearchHistoryList();
+      currentDeleteIndex = index;
+      openModal();
     });
 
     historyButton.appendChild(deleteIcon);
@@ -144,6 +148,15 @@ function renderSearchHistoryList() {
   });
 }
 
+function openModal() {
+  deleteModal.classList.add('is-active');
+}
+
+function closeModal() {
+  deleteModal.classList.remove('is-active');
+}
+
+
 window.addEventListener('load', () => {
   const storedHistory = localStorage.getItem('search-history-list');
   if (storedHistory) {
@@ -153,5 +166,24 @@ window.addEventListener('load', () => {
 });
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+
+closeModalBtn.addEventListener('click', closeModal);
+cancelDeleteBtn.addEventListener('click', closeModal);
+confirmDeleteBtn.addEventListener('click', () => {
+  if (currentDeleteIndex !== null) {
+    searchHistoryList.splice(currentDeleteIndex, 1);
+    localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
+    renderSearchHistoryList();
+    currentDeleteIndex = null;
+  }
+  closeModal();
+});
+
+window.addEventListener('click', (event) => {
+  if (event.target === deleteModal) {
+    closeModal();
+  }
+});
+
 getParams();
 
