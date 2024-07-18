@@ -15,20 +15,3 @@
     width: 100%;
     margin-bottom: 1rem;
 }
-
-.bg-primary {
-    background-color: #cbcece;
-}
-  
-.bg-light {
-    background-color: whitesmoke;
-}
-
-/* Text and Background Colors */
-.text-primary {
-    color: #2c3e50;
-}
-  
-.text-light {
-    color: #f8f9fa;
-}
