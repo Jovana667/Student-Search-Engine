@@ -8,11 +8,13 @@
   min-height: 100vh;
 }
 
-.searchbar-left{
+.searchbar-left {
   flex: 0 0 40%;
   width: 40%;
   padding: 2rem;
   background-color: whitesmoke;
+  overflow-y: auto; 
+  max-height: 100vh;
 }
 
 .searchresults-right {
@@ -144,6 +146,14 @@
   margin-bottom: 10px;
   font-size: 1.2rem;
   color: #2c3e50;
+}
+
+#search-history button {
+  width: 100%;
+  text-align: left;
+  white-space: normal; /* Allow text to wrap */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 #search-history {
