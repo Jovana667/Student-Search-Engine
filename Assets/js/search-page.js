@@ -10,18 +10,25 @@ const cancelDeleteBtn = document.querySelector('#cancel-delete');
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 let currentDeleteIndex = null;
 
+let currentPage = 1;
+const resultsPerPage = 5;
+let lastQuery = '';
+let lastSource = '';
+
 function getParams() {
   const searchParamsArr = document.location.search.split('&');
 
   const query = searchParamsArr[0].split('=').pop();
   const source = searchParamsArr[1].split('=').pop();
 
+  lastQuery = query;
+  lastSource = source;
+
   if (source === 'wikipedia') {
     searchWikipedia(query)
   } else {
     searchYoutube(query)
   }
-
 }
 
 function searchWikipedia(query) {
@@ -56,29 +63,44 @@ function searchWikipedia(query) {
       .catch(error => console.error('Error fetching data:', error));
 }
 
-function searchYoutube(query) {
+function searchYoutube(query, pageToken = '') {
   let apiKey = 'AIzaSyBgjhM8jkAtnDveHMpE2IY0O5MGTioGeMs';
-  let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${apiKey}`;
+  let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${apiKey}&maxResults=${resultsPerPage}`;
+  
+  if (pageToken) {
+    apiUrl += `&pageToken=${pageToken}`;
+  }
 
   fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-          let videosContainer = document.getElementById('videos');
-          videosContainer.innerHTML = '';
-          data.items.forEach(item => {
-              let videoId = item.id.videoId;
-              let iframe = document.createElement('iframe');
-              iframe.src = `https://www.youtube.com/embed/${videoId}`;
-              videosContainer.appendChild(iframe);
-          });
-      })
-      .catch(error => console.error('Error fetching data:', error));
+    .then(response => response.json())
+    .then(data => {
+      let videosContainer = document.getElementById('videos');
+      videosContainer.innerHTML = '';
+      data.items.forEach(item => {
+        let videoId = item.id.videoId;
+        let iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        videosContainer.appendChild(iframe);
+      });
+
+      // Store the next page token
+      if (data.nextPageToken) {
+        document.getElementById('next-page').dataset.nextPageToken = data.nextPageToken;
+        document.getElementById('next-page').style.display = 'block';
+      } else {
+        document.getElementById('next-page').style.display = 'none';
+      }
+    })
+    .catch(error => console.error('Error fetching data:', error));
 }
 
-function printResults(resultObj) {
-  
-  
-}
+document.getElementById('next-page').addEventListener('click', () => {
+  if (lastSource === 'youtube') {
+    const nextPageToken = document.getElementById('next-page').dataset.nextPageToken;
+    searchYoutube(lastQuery, nextPageToken);
+    currentPage++;
+  }
+});
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -112,6 +134,7 @@ function handleSearchFormSubmit(event) {
     localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
   }
 
+  currentPage = 1; // Reset page number for new search
   const queryString = `./search.html?q=${searchInputVal}&source=${selectedSource}`;
 
   location.assign(queryString);
