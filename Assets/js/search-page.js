@@ -8,6 +8,8 @@ const confirmDeleteBtn = document.querySelector('#confirm-delete');
 const cancelDeleteBtn = document.querySelector('#cancel-delete');
 const showHistoryBtn = document.querySelector('#show-history');
 const searchHistoryContainer = document.querySelector('#search-history');
+const nextPageBtn = document.getElementById('next-page');
+const lastPageBtn = document.getElementById('last-page');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 let currentDeleteIndex = null;
@@ -17,6 +19,7 @@ let currentPage = 1;
 const resultsPerPage = 5;
 let lastQuery = '';
 let lastSource = '';
+let pageTokens = [''];
 
 function getParams() {
   const searchParamsArr = document.location.search.split('&');
@@ -26,23 +29,25 @@ function getParams() {
 
   lastQuery = query;
   lastSource = source;
+  currentPage = 1;
+  pageTokens = [''];
 
   if (source === 'wikipedia') {
-    searchWikipedia(query)
+    searchWikipedia(query, 0);
   } else {
-    searchYoutube(query)
+    searchYoutube(query);
   }
 }
 
-function searchWikipedia(query) {
-  let apiUrlWikipedia = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${query}&utf8=&format=json&origin=*`;
+function searchWikipedia(query, offset = 0) {
+  let apiUrlWikipedia = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${query}&utf8=&format=json&origin=*&srlimit=${resultsPerPage}&sroffset=${offset}`;
 
   fetch(apiUrlWikipedia)
       .then(response => response.json())
       .then(data => {
           let articlesContainer = document.getElementById('articles');
           articlesContainer.innerHTML = '';
-          data.query.search.slice(0, 5).forEach(item => {
+          data.query.search.forEach(item => {
               let articleDiv = document.createElement('div');
               articleDiv.classList.add('article');
 
@@ -62,6 +67,8 @@ function searchWikipedia(query) {
 
               articlesContainer.appendChild(articleDiv);
           });
+          
+          updatePaginationButtons('wikipedia', offset, data.query.searchinfo.totalhits);
       })
       .catch(error => console.error('Error fetching data:', error));
 }
@@ -86,24 +93,52 @@ function searchYoutube(query, pageToken = '') {
         videosContainer.appendChild(iframe);
       });
 
-      if (data.nextPageToken) {
-        document.getElementById('next-page').dataset.nextPageToken = data.nextPageToken;
-        document.getElementById('next-page').style.display = 'block';
-      } else {
-        document.getElementById('next-page').style.display = 'none';
-      }
+      updatePaginationButtons('youtube', pageToken, data.pageInfo.totalResults, data.nextPageToken);
     })
     .catch(error => console.error('Error fetching data:', error));
 }
 
-document.getElementById('next-page').addEventListener('click', () => {
-  if (lastSource === 'youtube') {
-    const nextPageToken = document.getElementById('next-page').dataset.nextPageToken;
-    searchYoutube(lastQuery, nextPageToken);
-    currentPage++;
+function updatePaginationButtons(source, currentPage, totalResults, nextPageToken = null) {
+  const isFirstPage = source === 'wikipedia' ? currentPage === 0 : pageTokens.length === 1;
+  const isLastPage = source === 'wikipedia' 
+    ? (currentPage + resultsPerPage) >= totalResults 
+    : !nextPageToken;
+
+    lastPageBtn.disabled = isFirstPage;
+    lastPageBtn.style.display = isFirstPage ? 'none' : 'block';
+    
+    nextPageBtn.disabled = isLastPage;
+    nextPageBtn.style.display = isLastPage ? 'none' : 'block';
+    
+  if (source === 'youtube' && nextPageToken && !pageTokens.includes(nextPageToken)) {
+    pageTokens.push(nextPageToken);
   }
+}
+
+nextPageBtn.addEventListener('click', () => {
+  if (lastSource === 'youtube') {
+    const nextPageToken = pageTokens[pageTokens.length - 1];
+    searchYoutube(lastQuery, nextPageToken);
+  } else if (lastSource === 'wikipedia') {
+    const nextOffset = currentPage * resultsPerPage;
+    searchWikipedia(lastQuery, nextOffset);
+  }
+  currentPage++;
 });
 
+lastPageBtn.addEventListener('click', () => {
+  if (lastSource === 'youtube') {
+    if (pageTokens.length > 1) {
+      pageTokens.pop();
+      const lastPageToken = pageTokens[pageTokens.length - 1];
+      searchYoutube(lastQuery, lastPageToken);
+    }
+  } else if (lastSource === 'wikipedia') {
+    const prevOffset = Math.max(0, (currentPage - 2) * resultsPerPage);
+    searchWikipedia(lastQuery, prevOffset);
+  }
+  currentPage = Math.max(1, currentPage - 1);
+});
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
