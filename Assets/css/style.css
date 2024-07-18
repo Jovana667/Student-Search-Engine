@@ -19,6 +19,23 @@ h1, h2, h3, h4, h5, h6 {
   color: #2c3e50;
 }
 
+/* Text and Background Colors */
+.text-primary {
+  color: #2c3e50;
+}
+
+.text-light {
+  color: #f8f9fa;
+}
+
+.bg-primary {
+  background-color: #cbcece;
+}
+
+.bg-light {
+  background-color: whitesmoke;
+}
+
 /* Layout Styles */
 
 .searchbox {
