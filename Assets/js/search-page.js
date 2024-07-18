@@ -6,9 +6,12 @@ const deleteModal = document.querySelector('#delete-modal');
 const closeModalBtn = document.querySelector('#close-modal');
 const confirmDeleteBtn = document.querySelector('#confirm-delete');
 const cancelDeleteBtn = document.querySelector('#cancel-delete');
+const showHistoryBtn = document.querySelector('#show-history');
+const searchHistoryContainer = document.querySelector('#search-history');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 let currentDeleteIndex = null;
+let isHistoryVisible = false;
 
 let currentPage = 1;
 const resultsPerPage = 5;
@@ -39,7 +42,7 @@ function searchWikipedia(query) {
       .then(data => {
           let articlesContainer = document.getElementById('articles');
           articlesContainer.innerHTML = '';
-          data.query.search.forEach(item => {
+          data.query.search.slice(0, 5).forEach(item => {
               let articleDiv = document.createElement('div');
               articleDiv.classList.add('article');
 
@@ -48,13 +51,13 @@ function searchWikipedia(query) {
               articleDiv.appendChild(title);
 
               let snippet = document.createElement('p');
-              snippet.innerHTML = item.snippet + '...'; // Using innerHTML to render the HTML entities correctly
+              snippet.innerHTML = item.snippet + '...';
               articleDiv.appendChild(snippet);
 
               let readMoreLink = document.createElement('a');
               readMoreLink.href = `https://en.wikipedia.org/?curid=${item.pageid}`;
               readMoreLink.textContent = 'Read more';
-              readMoreLink.target = '_blank'; // Opens link in a new tab
+              readMoreLink.target = '_blank';
               articleDiv.appendChild(readMoreLink);
 
               articlesContainer.appendChild(articleDiv);
@@ -64,7 +67,7 @@ function searchWikipedia(query) {
 }
 
 function searchYoutube(query, pageToken = '') {
-  let apiKey = 'AIzaSyBgjhM8jkAtnDveHMpE2IY0O5MGTioGeMs';
+  let apiKey = 'AIzaSyCWiyD0PtzL7ZgFu3h5f261HZQ9x7ypy84';
   let apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${apiKey}&maxResults=${resultsPerPage}`;
   
   if (pageToken) {
@@ -83,7 +86,6 @@ function searchYoutube(query, pageToken = '') {
         videosContainer.appendChild(iframe);
       });
 
-      // Store the next page token
       if (data.nextPageToken) {
         document.getElementById('next-page').dataset.nextPageToken = data.nextPageToken;
         document.getElementById('next-page').style.display = 'block';
@@ -137,14 +139,14 @@ function handleSearchFormSubmit(event) {
     localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
   }
 
-  currentPage = 1; // Reset page number for new search
+  currentPage = 1;
   const queryString = `./search.html?q=${searchInputVal}&source=${selectedSource}`;
 
   location.assign(queryString);
 }
 
 function renderSearchHistoryList() {
-  searchHistoryEl.innerHTML = '';
+  searchHistoryContainer.innerHTML = '';
 
   searchHistoryList.slice(-10).reverse().forEach((searchHistory, index) => {
     const historyButton = document.createElement('button');
@@ -179,8 +181,14 @@ function renderSearchHistoryList() {
       renderSearchHistoryList();
     });
 
-    searchHistoryEl.appendChild(historyButton);
+    searchHistoryContainer.appendChild(historyButton);
   });
+}
+
+function toggleSearchHistory() {
+  isHistoryVisible = !isHistoryVisible;
+  searchHistoryContainer.style.display = isHistoryVisible ? 'block' : 'none';
+  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
 }
 
 function openModal() {
@@ -191,16 +199,17 @@ function closeModal() {
   deleteModal.classList.remove('is-active');
 }
 
-
 window.addEventListener('load', () => {
   const storedHistory = localStorage.getItem('search-history-list');
   if (storedHistory) {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
+  searchHistoryContainer.style.display = 'none';
 });
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+showHistoryBtn.addEventListener('click', toggleSearchHistory);
 
 closeModalBtn.addEventListener('click', closeModal);
 cancelDeleteBtn.addEventListener('click', closeModal);
@@ -221,4 +230,3 @@ window.addEventListener('click', (event) => {
 });
 
 getParams();
-
