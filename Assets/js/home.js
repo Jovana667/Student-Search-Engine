@@ -1,7 +1,9 @@
 const searchFormEl = document.querySelector('#search-form');
 const searchHistoryEl = document.querySelector('#search-history');
+const showHistoryBtn = document.querySelector('#show-history');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
+let isHistoryVisible = false;
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -92,4 +94,22 @@ window.addEventListener('load', () => {
   }
 });
 
+function toggleSearchHistory(event) {
+  event.preventDefault(); // Prevent form submission
+  isHistoryVisible = !isHistoryVisible;
+  searchHistoryEl.style.display = isHistoryVisible ? 'block' : 'none';
+  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
+}
+
+function initializePage() {
+  const storedHistory = localStorage.getItem('search-history-list');
+  if (storedHistory) {
+    searchHistoryList = JSON.parse(storedHistory);
+    renderSearchHistoryList();
+  }
+  searchHistoryEl.style.display = 'none'; // Hide history by default
+}
+
+window.addEventListener('load', initializePage);
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+showHistoryBtn.addEventListener('click', toggleSearchHistory);

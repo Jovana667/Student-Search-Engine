@@ -1,4 +1,13 @@
 /* Header and Search Styles */
+
+h3 {
+    font-family: 'Noto serif', 'Merriweather', serif;
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
 .header-container {
     display: flex;
     align-items: center;
