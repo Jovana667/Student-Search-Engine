@@ -131,6 +131,9 @@ function handleSearchFormSubmit(event) {
 
   if (!isDuplicate) {
     searchHistoryList.push(searchEntry);
+    if (searchHistoryList.length > 10) {
+      searchHistoryList = searchHistoryList.slice(-10);
+    }
     localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
   }
 
@@ -143,7 +146,7 @@ function handleSearchFormSubmit(event) {
 function renderSearchHistoryList() {
   searchHistoryEl.innerHTML = '';
 
-  searchHistoryList.forEach((searchHistory, index) => {
+  searchHistoryList.slice(-10).reverse().forEach((searchHistory, index) => {
     const historyButton = document.createElement('button');
     historyButton.classList.add('btn', 'btn-info', 'btn-block', 'mb-2', 'd-flex', 'align-items-center', 'justify-content-between');
     historyButton.innerHTML = `${searchHistory.query} (${searchHistory.source})`;
@@ -159,12 +162,21 @@ function renderSearchHistoryList() {
     historyButton.appendChild(deleteIcon);
 
     historyButton.addEventListener('click', () => {
-      document.querySelector('#search-input').value = searchHistory.query;
-      if (searchHistory.source === 'youtube') {
-        document.querySelector('#radioYouTube').checked = true;
-      } else if (searchHistory.source === 'wikipedia') {
-        document.querySelector('#radioWikipedia').checked = true;
+      const searchQuery = searchHistory.query;
+      const searchSource = searchHistory.source;
+      const queryString = `./search.html?q=${searchQuery}&source=${searchSource}`;
+      location.assign(queryString);
+
+      searchHistoryList = searchHistoryList.filter(
+        history => !(history.query === searchHistory.query && history.source === searchHistory.source)
+      );
+
+      searchHistoryList.push(searchHistory);
+      if (searchHistoryList.length > 10) {
+        searchHistoryList = searchHistoryList.slice(-10);
       }
+      localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
+      renderSearchHistoryList();
     });
 
     searchHistoryEl.appendChild(historyButton);
