@@ -1,7 +1,4 @@
-const resultTextEl = document.querySelector('#result-text');
-const resultContentEl = document.querySelector('#result-content');
 const searchFormEl = document.querySelector('#search-form');
-const searchHistoryEl = document.querySelector('#search-history');
 const deleteModal = document.querySelector('#delete-modal');
 const closeModalBtn = document.querySelector('#close-modal');
 const confirmDeleteBtn = document.querySelector('#confirm-delete');
@@ -10,13 +7,12 @@ const showHistoryBtn = document.querySelector('#show-history');
 const searchHistoryContainer = document.querySelector('#search-history');
 const nextPageBtn = document.getElementById('next-page');
 const lastPageBtn = document.getElementById('last-page');
+const resultsPerPage = 5;
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 let currentDeleteIndex = null;
 let isHistoryVisible = false;
-
 let currentPage = 1;
-const resultsPerPage = 5;
 let lastQuery = '';
 let lastSource = '';
 let pageTokens = [''];
@@ -98,47 +94,6 @@ function searchYoutube(query, pageToken = '') {
     .catch(error => console.error('Error fetching data:', error));
 }
 
-function updatePaginationButtons(source, currentPage, totalResults, nextPageToken = null) {
-  const isFirstPage = source === 'wikipedia' ? currentPage === 0 : pageTokens.length === 1;
-  const isLastPage = source === 'wikipedia' 
-    ? (currentPage + resultsPerPage) >= totalResults 
-    : !nextPageToken;
-
-    lastPageBtn.disabled = isFirstPage;
-    lastPageBtn.style.display = isFirstPage ? 'none' : 'block';
-    
-    nextPageBtn.disabled = isLastPage;
-    nextPageBtn.style.display = isLastPage ? 'none' : 'block';
-    
-  if (source === 'youtube' && nextPageToken && !pageTokens.includes(nextPageToken)) {
-    pageTokens.push(nextPageToken);
-  }
-}
-
-nextPageBtn.addEventListener('click', () => {
-  if (lastSource === 'youtube') {
-    const nextPageToken = pageTokens[pageTokens.length - 1];
-    searchYoutube(lastQuery, nextPageToken);
-  } else if (lastSource === 'wikipedia') {
-    const nextOffset = currentPage * resultsPerPage;
-    searchWikipedia(lastQuery, nextOffset);
-  }
-  currentPage++;
-});
-
-lastPageBtn.addEventListener('click', () => {
-  if (lastSource === 'youtube') {
-    if (pageTokens.length > 1) {
-      pageTokens.pop();
-      const lastPageToken = pageTokens[pageTokens.length - 1];
-      searchYoutube(lastQuery, lastPageToken);
-    }
-  } else if (lastSource === 'wikipedia') {
-    const prevOffset = Math.max(0, (currentPage - 2) * resultsPerPage);
-    searchWikipedia(lastQuery, prevOffset);
-  }
-  currentPage = Math.max(1, currentPage - 1);
-});
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
@@ -220,12 +175,6 @@ function renderSearchHistoryList() {
   });
 }
 
-function toggleSearchHistory() {
-  isHistoryVisible = !isHistoryVisible;
-  searchHistoryContainer.style.display = isHistoryVisible ? 'block' : 'none';
-  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
-}
-
 function openModal() {
   deleteModal.classList.add('is-active');
 }
@@ -234,17 +183,30 @@ function closeModal() {
   deleteModal.classList.remove('is-active');
 }
 
-window.addEventListener('load', () => {
-  const storedHistory = localStorage.getItem('search-history-list');
-  if (storedHistory) {
-    searchHistoryList = JSON.parse(storedHistory);
-    renderSearchHistoryList();
+function toggleSearchHistory() {
+  isHistoryVisible = !isHistoryVisible;
+  searchHistoryContainer.style.display = isHistoryVisible ? 'block' : 'none';
+  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
+}
+
+function updatePaginationButtons(source, currentPage, totalResults, nextPageToken = null) {
+  const isFirstPage = source === 'wikipedia' ? currentPage === 0 : pageTokens.length === 1;
+  const isLastPage = source === 'wikipedia' 
+    ? (currentPage + resultsPerPage) >= totalResults 
+    : !nextPageToken;
+
+    lastPageBtn.disabled = isFirstPage;
+    lastPageBtn.style.display = isFirstPage ? 'none' : 'block';
+    
+    nextPageBtn.disabled = isLastPage;
+    nextPageBtn.style.display = isLastPage ? 'none' : 'block';
+    
+  if (source === 'youtube' && nextPageToken && !pageTokens.includes(nextPageToken)) {
+    pageTokens.push(nextPageToken);
   }
-  searchHistoryContainer.style.display = 'none';
-});
+}
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-showHistoryBtn.addEventListener('click', toggleSearchHistory);
 
 closeModalBtn.addEventListener('click', closeModal);
 cancelDeleteBtn.addEventListener('click', closeModal);
@@ -256,6 +218,41 @@ confirmDeleteBtn.addEventListener('click', () => {
     currentDeleteIndex = null;
   }
   closeModal();
+});
+
+showHistoryBtn.addEventListener('click', toggleSearchHistory);
+
+nextPageBtn.addEventListener('click', () => {
+  if (lastSource === 'youtube') {
+    const nextPageToken = pageTokens[pageTokens.length - 1];
+    searchYoutube(lastQuery, nextPageToken);
+  } else if (lastSource === 'wikipedia') {
+    const nextOffset = currentPage * resultsPerPage;
+    searchWikipedia(lastQuery, nextOffset);
+  }
+  currentPage++;
+});
+lastPageBtn.addEventListener('click', () => {
+  if (lastSource === 'youtube') {
+    if (pageTokens.length > 1) {
+      pageTokens.pop();
+      const lastPageToken = pageTokens[pageTokens.length - 1];
+      searchYoutube(lastQuery, lastPageToken);
+    }
+  } else if (lastSource === 'wikipedia') {
+    const prevOffset = Math.max(0, (currentPage - 2) * resultsPerPage);
+    searchWikipedia(lastQuery, prevOffset);
+  }
+  currentPage = Math.max(1, currentPage - 1);
+});
+
+window.addEventListener('load', () => {
+  const storedHistory = localStorage.getItem('search-history-list');
+  if (storedHistory) {
+    searchHistoryList = JSON.parse(storedHistory);
+    renderSearchHistoryList();
+  }
+  searchHistoryContainer.style.display = 'none';
 });
 
 window.addEventListener('click', (event) => {
