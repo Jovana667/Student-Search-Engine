@@ -1,14 +1,13 @@
 const searchFormEl = document.querySelector('#search-form');
-const searchHistoryEl = document.querySelector('#search-history');
+const searchHistoryContainer = document.querySelector('#search-history');
 const deleteModal = document.querySelector('#delete-modal');
 const closeModalBtn = document.querySelector('#close-modal');
 const confirmDeleteBtn = document.querySelector('#confirm-delete');
 const cancelDeleteBtn = document.querySelector('#cancel-delete');
+const showHistoryBtn = document.querySelector('#show-history');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 let currentDeleteIndex = null;
-const showHistoryBtn = document.querySelector('#show-history');
-
 let isHistoryVisible = false;
 
 function handleSearchFormSubmit(event) {
@@ -52,7 +51,7 @@ function handleSearchFormSubmit(event) {
 }
 
 function renderSearchHistoryList() {
-  searchHistoryEl.innerHTML = '';
+  searchHistoryContainer.innerHTML = '';
 
   searchHistoryList.slice(-10).reverse().forEach((searchHistory, index) => {
     const historyButton = document.createElement('button');
@@ -87,7 +86,7 @@ function renderSearchHistoryList() {
       renderSearchHistoryList();
     });
 
-    searchHistoryEl.appendChild(historyButton);
+    searchHistoryContainer.appendChild(historyButton);
   });
 }
 
@@ -99,13 +98,14 @@ function closeModal() {
   deleteModal.classList.remove('is-active');
 }
 
-window.addEventListener('load', () => {
-  const storedHistory = localStorage.getItem('search-history-list');
-  if (storedHistory) {
-    searchHistoryList = JSON.parse(storedHistory);
-    renderSearchHistoryList();
-  }
-});
+function toggleSearchHistory(event) {
+  event.preventDefault(); // Prevent form submission
+  isHistoryVisible = !isHistoryVisible;
+  searchHistoryContainer.style.display = isHistoryVisible ? 'block' : 'none';
+  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
+}
+
+searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 closeModalBtn.addEventListener('click', closeModal);
 cancelDeleteBtn.addEventListener('click', closeModal);
@@ -119,29 +119,19 @@ confirmDeleteBtn.addEventListener('click', () => {
   closeModal();
 });
 
-window.addEventListener('click', (event) => {
-  if (event.target === deleteModal) {
-    closeModal();
-  }
-});
+showHistoryBtn.addEventListener('click', toggleSearchHistory);
 
-searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-function toggleSearchHistory(event) {
-  event.preventDefault(); // Prevent form submission
-  isHistoryVisible = !isHistoryVisible;
-  searchHistoryEl.style.display = isHistoryVisible ? 'block' : 'none';
-  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
-}
-
-function initializePage() {
+window.addEventListener('load', () => {
   const storedHistory = localStorage.getItem('search-history-list');
   if (storedHistory) {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
-  searchHistoryEl.style.display = 'none'; // Hide history by default
-}
+  searchHistoryContainer.style.display = 'none';
+});
 
-window.addEventListener('load', initializePage);
-searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-showHistoryBtn.addEventListener('click', toggleSearchHistory);
+window.addEventListener('click', (event) => {
+  if (event.target === deleteModal) {
+    closeModal();
+  }
+});
