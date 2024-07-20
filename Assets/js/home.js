@@ -107,7 +107,7 @@ function initializePage() {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
-  searchHistoryEl.style.display = 'none'; // Hide history by default
+  searchHistoryEl.style.display = 'Show'; // Show history by default
 }
 
 window.addEventListener('load', initializePage);

@@ -205,7 +205,7 @@ window.addEventListener('load', () => {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
-  searchHistoryContainer.style.display = 'none';
+  searchHistoryContainer.style.display = 'Show';
 });
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
