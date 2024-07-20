@@ -1,4 +1,4 @@
-# Project1 : Student Search Engine
+# Student Search Engine
 
 ## About The Project
 
@@ -50,7 +50,6 @@ AS A STUDENT <br>
 
 ## Project Link: To Be Provided
 
-
 ## Built With
 
 - HTML, CSS & JS codes
@@ -58,6 +57,7 @@ AS A STUDENT <br>
 - Font Awesome Library
 - YouTube API
 - Wikipedia API
+
 
 ## Main contributors & contacts 
 - Jovana Vukovic (Github: Jovana667)
