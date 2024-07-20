@@ -204,6 +204,7 @@ function updatePaginationButtons(source, currentPage, totalResults, nextPageToke
   if (source === 'youtube' && nextPageToken && !pageTokens.includes(nextPageToken)) {
     pageTokens.push(nextPageToken);
   }
+}
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
@@ -251,7 +252,7 @@ window.addEventListener('load', () => {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
-  searchHistoryContainer.style.display = 'none';
+  searchHistoryContainer.style.display = 'Show';
 });
 
 window.addEventListener('click', (event) => {
