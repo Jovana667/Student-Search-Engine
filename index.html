@@ -29,6 +29,7 @@
             <input type="radio" id="radioWikipedia" name="radioSource" value="wikipedia">
             <label for="radioWikipedia"><i class="fab fa-wikipedia-w"></i> Wikipedia</label>
           </div>
+
           <div class="previously-searched">
             <div class="history-header">
               <h3>Previously Searched Items</h3>
@@ -36,11 +37,26 @@
             </div>
             <div id="search-history" style="display: Show;"></div>
           </div>
-        </div>
-      </form>
-    </div>
-  </div>
   
+<!-- Bulma Modal structure -->
+<div class="modal" id="delete-modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Delete Search History</p>
+      <button class="delete" aria-label="close" id="close-modal"></button>
+    </header>
+    <section class="modal-card-body">
+      <p>Are you sure you want to delete your search history?</p>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" id="confirm-delete">Delete</button>
+      <button class="button" id="cancel-delete">Cancel</button>
+    </footer>
+  </div>
+  </div>
+</div>
+
 <script src="./assets/js/home.js"></script>
 
 </body>
