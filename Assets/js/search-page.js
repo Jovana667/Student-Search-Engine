@@ -204,7 +204,6 @@ function updatePaginationButtons(source, currentPage, totalResults, nextPageToke
   if (source === 'youtube' && nextPageToken && !pageTokens.includes(nextPageToken)) {
     pageTokens.push(nextPageToken);
   }
-}
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 

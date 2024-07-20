@@ -39,18 +39,24 @@ AS A STUDENT <br>
 - WHEN I want to delete the searched items
 - THEN the results will be deleted from browser by clicking the delete icon next to searched items
 
+## Project Status: Completed
+
+## Project Screenshots:
+
+<img src="./Assets/images/Homepage.png" width="350" title="page screenshot1">
+<img src="./Assets/images/Searchyoutube.png" width="350" title="page screenshot2">
+<img src="./Assets/images/Searchwiki.png" width="350" title="page screenshot3">
+
+## Project Link: To Be Provided
+
 ## Built With
 
 - HTML, CSS & JS codes
 - Bulma CSS Framework
 - Font Awesome Library
-- JQuery
 - YouTube API
 - Wikipedia API
 
-## Demo
-
-![cad1d314-1bfd-4c2f-8990-5bb3f10fc415](https://github.com/user-attachments/assets/8f97d065-cf4b-4158-ac25-c9d376a33c0f)
 
 ## Main contributors & contacts 
 - Jovana Vukovic (Github: Jovana667)
@@ -59,10 +65,5 @@ AS A STUDENT <br>
 - Wendy Xiao  (Github: Wendyydxiao)
 
 
-## Deployed Application
-
-
-
-## License
-
-This project is licensed under the [MIT License].
+## Acknowledgments
+Inspired by BootCamp Server side API mini project - Library of Congress Search Engine (local link: http://127.0.0.1:5500/06-Server-Side-APIs/01-Activities/27-Stu_Mini-Project/Main/index.html)
