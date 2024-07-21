@@ -26,7 +26,7 @@ The Student Search Engine is a one-stop shop for students to research content an
 ## Screenshot:
 
 ![Screenshot 2024-07-22 015549](https://github.com/user-attachments/assets/71a81ed9-3eff-4647-b271-2ce6ed61c138)
-![1](https://github.com/user-attachments/assets/bcf44a91-ffba-42a8-8384-9cde88d57a61)
+![Screenshot 2024-07-22 022617](https://github.com/user-attachments/assets/6b60a4b5-948e-457a-ac3b-bf07cb652e41)
 ![Screenshot 2024-07-22 015534](https://github.com/user-attachments/assets/f6cfd87c-6b1b-4516-9820-9cc373371ed0)
 
 
