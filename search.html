@@ -47,9 +47,15 @@
       </div>
     </div>
     <div class="searchresults-right text-light">
-      <h1>Showing results:</h1>
-      <div id="articles" class="article-container"></div>
-      <div id="videos" class="video-container"></div>      
+      <div class="searchresults-content">
+        <h1>Showing results:</h1>
+        <div id="articles" class="article-container"></div>
+        <div id="videos" class="video-container"></div>
+        <div id="pagination-controls">
+          <button id="last-page" class="button is-primary">Previous Page</button>
+          <button id="next-page" class="button is-primary">Next Page</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -72,8 +78,6 @@
     </div>
     </div>
   </div>
-
-  <button id="next-page" class="button is-primary" style="display: none;">Next Page</button>  
   
   <script src="./Assets/js/search-page.js"></script>
 </body>

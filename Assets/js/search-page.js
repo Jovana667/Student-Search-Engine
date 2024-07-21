@@ -157,7 +157,6 @@ function renderSearchHistoryList() {
       const searchQuery = searchHistory.query;
       const searchSource = searchHistory.source;
       const queryString = `https://jovana667.github.io/student-search-engine/search.html?q=${searchQuery}&source=${searchSource}`;
-      // const queryString = `./search.html?q=${searchQuery}&source=${searchSource}`;
       location.assign(queryString);
 
       searchHistoryList = searchHistoryList.filter(
@@ -196,12 +195,13 @@ function updatePaginationButtons(source, currentPage, totalResults, nextPageToke
     ? (currentPage + resultsPerPage) >= totalResults 
     : !nextPageToken;
 
-    lastPageBtn.disabled = isFirstPage;
-    lastPageBtn.style.display = isFirstPage ? 'none' : 'block';
-    
-    nextPageBtn.disabled = isLastPage;
-    nextPageBtn.style.display = isLastPage ? 'none' : 'block';
-    
+  lastPageBtn.disabled = isFirstPage;
+  nextPageBtn.disabled = isLastPage;
+  
+  // Always show the buttons, but disable them when necessary
+  lastPageBtn.style.display = 'inline-block';
+  nextPageBtn.style.display = 'inline-block';
+  
   if (source === 'youtube' && nextPageToken && !pageTokens.includes(nextPageToken)) {
     pageTokens.push(nextPageToken);
   }
@@ -234,6 +234,20 @@ nextPageBtn.addEventListener('click', () => {
   currentPage++;
 });
 
+lastPageBtn.addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    if (lastSource === 'wikipedia') {
+      const prevOffset = (currentPage - 1) * resultsPerPage;
+      searchWikipedia(lastQuery, prevOffset);
+    } else if (lastSource === 'youtube') {
+      const prevPageToken = pageTokens[pageTokens.length - 2];
+      pageTokens.pop();
+      searchYoutube(lastQuery, prevPageToken);
+    }
+  }
+});
+
 window.addEventListener('load', () => {
   const storedHistory = localStorage.getItem('search-history-list');
   if (storedHistory) {
@@ -241,6 +255,14 @@ window.addEventListener('load', () => {
     renderSearchHistoryList();
   }
   searchHistoryContainer.style.display = 'none';
+
+  // Initialize pagination buttons
+  lastPageBtn.style.display = 'inline-block';
+  nextPageBtn.style.display = 'inline-block';
+  lastPageBtn.disabled = true;
+  nextPageBtn.disabled = false;
+
+  getParams();
 });
 
 window.addEventListener('click', (event) => {
@@ -248,5 +270,3 @@ window.addEventListener('click', (event) => {
     closeModal();
   }
 });
-
-getParams();
