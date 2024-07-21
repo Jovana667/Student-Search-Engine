@@ -48,7 +48,8 @@ AS A STUDENT <br>
 <img src="./Assets/images/Searchwiki.png" width="350" title="page screenshot3">
 
 
-## Project Link: To Be Provided
+## Project Link: 
+https://jovana667.github.io/student-search-engine/
 
 ## Built With
 
