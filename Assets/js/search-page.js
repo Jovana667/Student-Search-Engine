@@ -240,7 +240,7 @@ window.addEventListener('load', () => {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
-  searchHistoryContainer.style.display = 'Show';
+  searchHistoryContainer.style.display = 'none';
 });
 
 window.addEventListener('click', (event) => {

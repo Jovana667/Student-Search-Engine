@@ -8,7 +8,7 @@ const showHistoryBtn = document.querySelector('#show-history');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
 let currentDeleteIndex = null;
-let isHistoryVisible = false;
+let isHistoryVisible = true;
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -128,7 +128,8 @@ window.addEventListener('load', () => {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
-  searchHistoryContainer.style.display = 'Show';
+  searchHistoryContainer.style.display = 'block';
+  showHistoryBtn.textContent = 'Hide';
 });
 
 window.addEventListener('click', (event) => {
