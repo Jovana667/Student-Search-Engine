@@ -43,7 +43,7 @@ AS A STUDENT <br>
 
 ## Project Screenshots:
 
-<img src="./Assets/images/Homepage.png" width="350" title="page screenshot1">
+<img src="./Assets/images/Homepage1.png" width="350" title="page screenshot1">
 <img src="./Assets/images/Searchyoutube.png" width="350" title="page screenshot2">
 <img src="./Assets/images/Searchwiki.png" width="350" title="page screenshot3">
 
