@@ -156,7 +156,7 @@ function renderSearchHistoryList() {
     historyButton.addEventListener('click', () => {
       const searchQuery = searchHistory.query;
       const searchSource = searchHistory.source;
-      const queryString = `https://jovana667.github.io/student-search-engine/search.html?q=${searchInputVal}&source=${selectedSource}`;
+      const queryString = `https://jovana667.github.io/student-search-engine/search.html?q=${searchQuery}&source=${searchSource}`;
       // const queryString = `./search.html?q=${searchQuery}&source=${searchSource}`;
       location.assign(queryString);
 
