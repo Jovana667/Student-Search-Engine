@@ -45,7 +45,7 @@ function handleSearchFormSubmit(event) {
     localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
   }
 
-  const queryString = `https://jovana667.github.io/Student-Search-Engine/search.html?q=${searchInputVal}&source=${selectedSource}`;
+  const queryString = `https://jovana667.github.io/student-search-engine/search.html?q=${searchInputVal}&source=${selectedSource}`;
   // const queryString = `./search.html?q=${searchInputVal}&source=${selectedSource}`;
 
   location.assign(queryString);
