@@ -233,19 +233,6 @@ nextPageBtn.addEventListener('click', () => {
   }
   currentPage++;
 });
-lastPageBtn.addEventListener('click', () => {
-  if (lastSource === 'youtube') {
-    if (pageTokens.length > 1) {
-      pageTokens.pop();
-      const lastPageToken = pageTokens[pageTokens.length - 1];
-      searchYoutube(lastQuery, lastPageToken);
-    }
-  } else if (lastSource === 'wikipedia') {
-    const prevOffset = Math.max(0, (currentPage - 2) * resultsPerPage);
-    searchWikipedia(lastQuery, prevOffset);
-  }
-  currentPage = Math.max(1, currentPage - 1);
-});
 
 window.addEventListener('load', () => {
   const storedHistory = localStorage.getItem('search-history-list');
