@@ -1,9 +1,14 @@
 const searchFormEl = document.querySelector('#search-form');
-const searchHistoryEl = document.querySelector('#search-history');
+const searchHistoryContainer = document.querySelector('#search-history');
+const deleteModal = document.querySelector('#delete-modal');
+const closeModalBtn = document.querySelector('#close-modal');
+const confirmDeleteBtn = document.querySelector('#confirm-delete');
+const cancelDeleteBtn = document.querySelector('#cancel-delete');
 const showHistoryBtn = document.querySelector('#show-history');
 
 let searchHistoryList = JSON.parse(localStorage.getItem('search-history-list')) || [];
-let isHistoryVisible = false;
+let currentDeleteIndex = null;
+let isHistoryVisible = true;
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
@@ -40,13 +45,14 @@ function handleSearchFormSubmit(event) {
     localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
   }
 
-  const queryString = `./search.html?q=${searchInputVal}&source=${selectedSource}`;
+  const queryString = `https://jovana667.github.io/student-search-engine/search.html?q=${searchInputVal}&source=${selectedSource}`;
+  // const queryString = `./search.html?q=${searchInputVal}&source=${selectedSource}`;
 
   location.assign(queryString);
 }
 
 function renderSearchHistoryList() {
-  searchHistoryEl.innerHTML = '';
+  searchHistoryContainer.innerHTML = '';
 
   searchHistoryList.slice(-10).reverse().forEach((searchHistory, index) => {
     const historyButton = document.createElement('button');
@@ -57,9 +63,8 @@ function renderSearchHistoryList() {
     deleteIcon.classList.add('fas', 'fa-trash', 'text-danger', 'ms-2');
     deleteIcon.addEventListener('click', (event) => {
       event.stopPropagation(); 
-      searchHistoryList.splice(index, 1);
-      localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
-      renderSearchHistoryList();
+      currentDeleteIndex = searchHistoryList.length - 1 - index;
+      openModal();
     });
 
     historyButton.appendChild(deleteIcon);
@@ -82,9 +87,40 @@ function renderSearchHistoryList() {
       renderSearchHistoryList();
     });
 
-    searchHistoryEl.appendChild(historyButton);
+    searchHistoryContainer.appendChild(historyButton);
   });
 }
+
+function openModal() {
+  deleteModal.classList.add('is-active');
+}
+
+function closeModal() {
+  deleteModal.classList.remove('is-active');
+}
+
+function toggleSearchHistory(event) {
+  event.preventDefault(); // Prevent form submission
+  isHistoryVisible = !isHistoryVisible;
+  searchHistoryContainer.style.display = isHistoryVisible ? 'block' : 'none';
+  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
+}
+
+searchFormEl.addEventListener('submit', handleSearchFormSubmit);
+
+closeModalBtn.addEventListener('click', closeModal);
+cancelDeleteBtn.addEventListener('click', closeModal);
+confirmDeleteBtn.addEventListener('click', () => {
+  if (currentDeleteIndex !== null) {
+    searchHistoryList.splice(currentDeleteIndex, 1);
+    localStorage.setItem('search-history-list', JSON.stringify(searchHistoryList));
+    renderSearchHistoryList();
+    currentDeleteIndex = null;
+  }
+  closeModal();
+});
+
+showHistoryBtn.addEventListener('click', toggleSearchHistory);
 
 window.addEventListener('load', () => {
   const storedHistory = localStorage.getItem('search-history-list');
@@ -92,24 +128,12 @@ window.addEventListener('load', () => {
     searchHistoryList = JSON.parse(storedHistory);
     renderSearchHistoryList();
   }
+  searchHistoryContainer.style.display = 'block';
+  showHistoryBtn.textContent = 'Hide';
 });
 
-function toggleSearchHistory(event) {
-  event.preventDefault(); // Prevent form submission
-  isHistoryVisible = !isHistoryVisible;
-  searchHistoryEl.style.display = isHistoryVisible ? 'block' : 'none';
-  showHistoryBtn.textContent = isHistoryVisible ? 'Hide' : 'Show';
-}
-
-function initializePage() {
-  const storedHistory = localStorage.getItem('search-history-list');
-  if (storedHistory) {
-    searchHistoryList = JSON.parse(storedHistory);
-    renderSearchHistoryList();
+window.addEventListener('click', (event) => {
+  if (event.target === deleteModal) {
+    closeModal();
   }
-  searchHistoryEl.style.display = 'none'; // Hide history by default
-}
-
-window.addEventListener('load', initializePage);
-searchFormEl.addEventListener('submit', handleSearchFormSubmit);
-showHistoryBtn.addEventListener('click', toggleSearchHistory);
+});

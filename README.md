@@ -1,58 +1,47 @@
-# Project1 : Student Search Engine
+# Student Search Engine
 
-## About The Project
+## Description
 
-At the conclusion of each phase of the Bootcamp, we will work with a group of our fellow students to create a project. A project is collaborative work among a group of developers to create an application that solves a real-world problem. Projects model the experience you’ll encounter in every development role at any company, from large multinational businesses to small startups. Coding is collaborative.
+The Student Search Engine is a one-stop shop for students to research content and material for school and personal study. This two-page website allows students to search for keywords with defined result types (YouTube/Wikipedia) and get the most relevant results. To enhance search efficiency, the page provides a list of searched items that users can use to retrieve previous search results at any time.
 
-This will use everything we've learned over the past six modules to create a real-world front-end application that you’ll be able to showcase to potential employers.
+## Features
 
-### Project Requirements
+- Search for YouTube videos and Wikipedia articles using keywords
+- View search results below search bar
+- Functionality to show or hide previously searched items
+- Delete searched items from the history
+- Responsive design for various screen sizes
+- Interactive user interface with a modal feature
 
-- Use a CSS framework other than Bootstrap.
-- Be deployed to GitHub Pages.
-- Be interactive (i.e., accept and respond to user input).
-- Use at least two server-side APIs.
-- Must include one modal. It does not use native browser alert, confirm, or prompt functionality.
-- Use client-side storage to store persistent data.
-- Be responsive.
-- Have a polished UI.
-- Have a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
-- Have a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
+## Usage
 
-### What we are building
+1. Open the website in your browser.
+2. Select the search type (YouTube or Wikipedia).
+3. Enter your search keywords in the input field.
+4. Click the "Search" button or press Enter.
+5. View the search results on the results page and toggle from next page or previous page using  buttons.
+6. Access your search history on the results page.
+7. Delete unwanted items from your search history using the delete icon.
 
-In this project, our team has created a two-page website where students are able to search keywords with defined result type (YouTube/ Wikipedia) and get the most relevant results. In order to search more effectively, our page provides a list of searched items that users can retrieve previous search results anytime. 
+## Screenshot:
 
-**User Story**
-
-AS A STUDENT <br>
-- I want a Student Search Engine
-- SO THAT I can easily search for videos and wiki articles by searching the key words on one-stop search engine
-
-**Acceptance Criteria**
-
-- GIVEN a student
-- WHEN I select search type (YouTube/ Wikipedia) and hit Search
-- THEN I am directed to Search Result Page with a series of search results which are relevant to the search criterias
-- WHEN I want to refer to my previous searches
-- THEN there is a previously searched history section on search result page to display all searched keywords that I can click to search again
-- WHEN I want to delete the searched items
-- THEN the results will be deleted from browser by clicking the delete icon next to searched items
+![Screenshot 2024-07-22 015549](https://github.com/user-attachments/assets/71a81ed9-3eff-4647-b271-2ce6ed61c138)
+![Screenshot 2024-07-22 022617](https://github.com/user-attachments/assets/6b60a4b5-948e-457a-ac3b-bf07cb652e41)
+![Screenshot 2024-07-22 015534](https://github.com/user-attachments/assets/f6cfd87c-6b1b-4516-9820-9cc373371ed0)
 
 
-## Project Link: To Be Provided
+## Deployed Application
 
-## Project Status: In Progress
-
+https://jovana667.github.io/student-search-engine/
 
 ## Built With
 
 - HTML, CSS & JS codes
 - Bulma CSS Framework
 - Font Awesome Library
-- JQuery
 - YouTube API
 - Wikipedia API
+
 
 ## Main contributors & contacts 
 - Jovana Vukovic (Github: Jovana667)
@@ -62,4 +51,4 @@ AS A STUDENT <br>
 
 
 ## Acknowledgments
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Inspired by BootCamp Server side API mini project - Library of Congress Search Engine (local link: http://127.0.0.1:5500/06-Server-Side-APIs/01-Activities/27-Stu_Mini-Project/Main/index.html)

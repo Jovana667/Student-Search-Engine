@@ -9,8 +9,8 @@
   rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="./assets/css/style.css" />
-  <link rel="stylesheet" href="./assets/css/search.css" />
+  <link rel="stylesheet" href="./Assets/css/style.css" />
+  <link rel="stylesheet" href="./Assets/css/search.css" />
 </head>
 
 <body>
@@ -34,7 +34,8 @@
           <label for="radioWikipedia"><i class="fab fa-wikipedia-w"></i> Wikipedia</label>
         </div>
       
-        <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back</a>
+        <a href="https://jovana667.github.io/student-search-engine/" class="btn btn-block btn-danger">&larr; Go back</a>
+        <!-- <a href="./index.html" class="btn btn-block btn-danger">&larr; Go back</a> -->
       
         <div class="previously-searched">
           <div class="history-header">
@@ -46,9 +47,15 @@
       </div>
     </div>
     <div class="searchresults-right text-light">
-      <h1>Showing results for <span id="result-text"></span></h1>
-      <div id="articles" class="article-container"></div>
-      <div id="videos" class="video-container"></div>      
+      <div class="searchresults-content">
+        <h1>Showing results:</h1>
+        <div id="articles" class="article-container"></div>
+        <div id="videos" class="video-container"></div>
+        <div id="pagination-controls">
+          <button id="last-page" class="button is-primary">Previous Page</button>
+          <button id="next-page" class="button is-primary">Next Page</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -71,7 +78,12 @@
     </div>
     </div>
   </div>
+<<<<<<< HEAD
   <button id="next-page" class="button is-primary" style="display: none;">Next Page</button>  <script src="./assets/js/search-page.js"></script>
+=======
+  
+  <script src="./Assets/js/search-page.js"></script>
+>>>>>>> origin/main
 </body>
 
 </html>
