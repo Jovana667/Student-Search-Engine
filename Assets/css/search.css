@@ -34,9 +34,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-bottom: 20px;
-  position: relative;
-  min-height: calc(100vh - 20px);
 }
 
 /* Header Styles */
@@ -89,8 +86,7 @@ body {
   flex-direction: column;
   gap: 20px;
   overflow-y: visible;
-  max-height: calc(100vh - 150px); /* Adjust this value as needed */
-  margin-bottom: 60px;
+  max-height: calc(100vh - 150px);
 }
 
 .article {
@@ -100,6 +96,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  overflow: auto;
 }
 
 .article:hover {
@@ -160,16 +157,9 @@ iframe {
 } */
 
 #pagination-controls {
+  margin-top: auto;
+  padding: 20px 0;
   text-align: center;
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background-color: #ffffff1c;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  z-index: 1000;
 }
 
 #pagination-controls button {
